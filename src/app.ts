@@ -1,0 +1,23 @@
+import { connectDatabase } from './database/database';
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+
+app.use(express.json());
+app.use(cors({ origin: process.env.CORS_OPTIONS || '*' }));
+
+const PORT = process.env.PPORT || 4000;
+
+connectDatabase();
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Servidor funcionando');
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
+});
