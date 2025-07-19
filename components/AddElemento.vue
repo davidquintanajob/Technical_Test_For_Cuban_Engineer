@@ -62,7 +62,7 @@
           </button>
           <!-- Contenedor flex para Add y Cancel al final -->
           <div class="col-span-3 sm:ml-auto flex gap-2 w-full sm:w-auto justify-end">
-            <button @click="$emit('cancelar')" class="flex items-center justify-center gap-1 px-2 py-2 transition-colors text-xs sm:text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold">
+            <button @click="$emit('cancelar')" class="flex items-center justify-center gap-1 px-6 py-2 transition-colors text-xs sm:text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold">
               Cancel
             </button>
             <button @click="$emit('agregar', texto)" class="flex items-center justify-center gap-1 px-2 sm:px-3 py-2 transition-colors text-xs sm:text-sm bg-blue-500 hover:bg-blue-600 text-white font-bold">

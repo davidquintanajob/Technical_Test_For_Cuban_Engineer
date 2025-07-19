@@ -99,13 +99,11 @@
                     style="background-color: #f8fafc;"
                   >
                     <img src="/calendar.svg" alt="Calendar" class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" style="filter: brightness(0) saturate(100%) invert(59%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(89%) contrast(86%);" />
-                    <span class="text-gray-500 hidden sm:inline">Today</span>
                   </button>
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
                   >
                     <img src="/unlock.svg" alt="Unlock" class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" style="filter: brightness(0) saturate(100%) invert(59%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(89%) contrast(86%);" />
-                    <span class="text-gray-500 hidden sm:inline">Public</span>
                   </button>
                   <!-- Siguientes 3 botones -->
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
@@ -123,7 +121,6 @@
                       <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                       <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
-                    <span class="text-gray-500 hidden sm:inline">Normal</span>
                   </button>
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
@@ -133,7 +130,6 @@
                       <circle cx="12" cy="12" r="10"></circle>
                       <circle cx="12" cy="12" r="6"></circle>
                     </svg>
-                    <span class="text-gray-500 hidden sm:inline">Estimation</span>
                   </button>
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
@@ -143,7 +139,6 @@
                       <polyline points="3,6 5,6 21,6"></polyline>
                       <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
                     </svg>
-                    <span class="text-gray-500 hidden sm:inline">Delete</span>
                   </button>
                   <!-- Botón de cerrar -->
                   <button 
