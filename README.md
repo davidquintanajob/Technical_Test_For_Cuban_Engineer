@@ -1,223 +1,137 @@
-# Contract Manager - Frontend
+# Task Manager Backend
 
-Sistema de gestión de contratos desarrollado con Nuxt 3, Vue 3 y Tailwind CSS. Esta aplicación permite gestionar contratos, entidades, ofertas, trabajadores y usuarios de manera eficiente.
+A robust backend REST API for managing tasks, built with Node.js, Express, TypeORM, TypeScript, and PostgreSQL. This project follows a clean 3-layer architecture (routes, controllers, services) and includes interactive API documentation with Swagger.
 
-## 🚀 Características
+## 🚀 Features
 
-- **Gestión de Contratos**: Crear, editar, ver y eliminar contratos
-- **Gestión de Entidades**: Administrar entidades contratantes
-- **Gestión de Ofertas**: Manejar ofertas de trabajo
-- **Gestión de Trabajadores**: Administrar trabajadores y sus asociaciones
-- **Gestión de Usuarios**: Sistema de usuarios y autenticación
-- **Tipos de Contrato**: Configuración de tipos de contratos
-- **Exportación a Excel**: Exportar datos de todas las vistas
-- **Interfaz Responsiva**: Diseño adaptativo para móviles y desktop
-- **Autenticación JWT**: Sistema seguro de login/logout
+- **Task CRUD**: Create, read, update, and delete tasks
+- **TypeORM Integration**: PostgreSQL database with entity models
+- **Three-layer Architecture**: Separation of routes, controllers, and services
+- **Environment-based Configuration**: Easily configurable via `.env`
+- **CORS Support**: Configurable origins
+- **Swagger Documentation**: Interactive API docs at `/api-docs`
 
-## 🛠️ Tecnologías Utilizadas
+## 📋 Requirements
 
-- **Nuxt 3**: Framework de Vue.js para aplicaciones universales
-- **Vue 3**: Framework progresivo de JavaScript
-- **Tailwind CSS**: Framework de CSS utilitario
-- **XLSX**: Biblioteca para exportación a Excel
-- **Leaflet**: Biblioteca para mapas (plugin incluido)
+- Node.js v20.13.*
+- npm, yarn, or pnpm
+- PostgreSQL database
 
-## 📋 Prerrequisitos
+## ⚙️ Environment Variables
 
-Antes de comenzar, asegúrate de tener instalado:
+Create a `.env` file in the root directory with the following variables:
 
-- **Node.js** (versión 16 o superior)
-- **npm**, **yarn** o **pnpm**
-- **Backend del Contract Manager** ejecutándose en `http://localhost:4000`
+```env
+PPORT=4000
+CORS_OPTIONS=*
+DB_NAME=your_db_name
+DB_USER=your_db_user
+DB_PASSWORD=your_db_password
+DB_HOST=localhost
+DB_PORT=5432
+```
 
-## 🔧 Instalación
+## 🛠️ Installation & Usage
 
-1. **Clonar el repositorio**
+1. **Clone the repository**
    ```bash
    git clone https://github.com/davidquintanajob/Contract-Manager
-   cd frontend
+   cd backend
    ```
-
-2. **Instalar dependencias**
+2. **Install dependencies**
    ```bash
-   # Con npm
    npm install
-
-   # Con yarn
-   yarn install
-
-   # Con pnpm
-   pnpm install
    ```
+3. **Configure your environment**
+   - Edit `.env` with your database credentials.
+4. **Run the server**
+   - Development mode (with auto-reload):
+     ```bash
+     npm run dev
+     ```
+   - Production mode:
+     ```bash
+     npm start
+     ```
 
-3. **Configurar variables de entorno**
-   
-   Crea un archivo `.env` en la raíz del proyecto:
-   ```env
-   # Configuración del backend
-   BACKEND_HOST=http://localhost:4000
-   ```
+## 📚 API Documentation
 
-4. **Verificar configuración**
-   
-   Asegúrate de que el archivo `nuxt.config.ts` tenga la configuración correcta del backend:
-   ```typescript
-   export default defineNuxtConfig({
-     runtimeConfig: {
-       public: {
-         backendHost: process.env.BACKEND_HOST || 'http://localhost:4000'
-       }
-     }
-   })
-   ```
-
-## 🚀 Desarrollo
-
-### Iniciar servidor de desarrollo
-
-```bash
-# Con npm
-npm run dev
-
-# Con yarn
-yarn dev
-
-# Con pnpm
-pnpm dev
-```
-
-La aplicación estará disponible en `http://localhost:3000`
-
-### Estructura del Proyecto
+Interactive Swagger UI is available at:
 
 ```
-frontend/
-├── components/          # Componentes reutilizables
-│   ├── DataTable.vue   # Tabla de datos genérica
-│   ├── Navbar.vue      # Barra de navegación
-│   ├── MessageBanner.vue # Banner de mensajes
-│   └── ...
-├── pages/              # Páginas de la aplicación
-│   ├── index.vue       # Página principal
-│   ├── login.vue       # Página de login
-│   ├── contratos.vue   # Gestión de contratos
-│   ├── entidades.vue   # Gestión de entidades
-│   └── ...
-├── assets/             # Recursos estáticos
-├── public/             # Archivos públicos
-└── nuxt.config.ts      # Configuración de Nuxt
+http://localhost:4000/api-docs
 ```
 
-## 🏗️ Construcción para Producción
+### Main Endpoints
 
-### Construir la aplicación
+| Method | Endpoint         | Description              |
+|--------|------------------|--------------------------|
+| GET    | /api/tasks       | Get all tasks            |
+| GET    | /api/tasks/:id   | Get a task by ID         |
+| POST   | /api/tasks       | Create a new task        |
+| PUT    | /api/tasks/:id   | Update an existing task  |
+| DELETE | /api/tasks/:id   | Delete a task            |
 
-```bash
-# Con npm
-npm run build
+#### Example: Create a Task
 
-# Con yarn
-yarn build
+```http
+POST /api/tasks
+Content-Type: application/json
 
-# Con pnpm
-pnpm build
+{
+  "text": "My first task"
+}
 ```
 
-### Previsualizar la construcción
+#### Example: Update a Task
 
-```bash
-# Con npm
-npm run preview
+```http
+PUT /api/tasks/1
+Content-Type: application/json
 
-# Con yarn
-yarn preview
-
-# Con pnpm
-pnpm preview
+{
+  "text": "Updated task text"
+}
 ```
 
-## 🚀 Despliegue
+#### Example: Get All Tasks
 
-### Despliegue en Vercel
+```http
+GET /api/tasks
+```
 
-1. **Conectar repositorio a Vercel**
-   - Ve a [vercel.com](https://vercel.com)
-   - Conecta tu repositorio de GitHub
-   - Vercel detectará automáticamente que es un proyecto Nuxt
+#### Example: Get Task by ID
 
-2. **Configurar variables de entorno**
-   - En el dashboard de Vercel, ve a Settings > Environment Variables
-   - Agrega `BACKEND_HOST` con la URL de tu backend en producción
+```http
+GET /api/tasks/1
+```
 
-3. **Desplegar**
-   - Cada push a la rama principal desplegará automáticamente
-   - O usa el botón "Deploy" en el dashboard
+#### Example: Delete a Task
 
-### Despliegue en Netlify
+```http
+DELETE /api/tasks/1
+```
 
-1. **Conectar repositorio a Netlify**
-   - Ve a [netlify.com](https://netlify.com)
-   - Conecta tu repositorio de GitHub
-   - Configura el comando de build: `npm run build`
-   - Configura el directorio de publicación: `.output/public`
+## 🏗️ Project Structure
 
-2. **Configurar variables de entorno**
-   - En Site settings > Environment variables
-   - Agrega `BACKEND_HOST` con la URL de tu backend
+```
+backend/
+├── src/
+│   ├── app.ts                # Main entry point
+│   ├── database/             # Database connection config
+│   ├── models/               # TypeORM entities (e.g., Task)
+│   ├── controllers/          # Controllers (e.g., TaskController)
+│   ├── services/             # Business logic (e.g., TaskService)
+│   └── routs/                # Route definitions (e.g., taskRoutes)
+├── .env                      # Environment variables
+├── package.json              # Project metadata and scripts
+└── README.md                 # Project documentation
+```
 
-### Despliegue en servidor propio
+## 🐛 Troubleshooting
 
-1. **Construir la aplicación**
-   ```bash
-   npm run build
-   ```
+- Ensure PostgreSQL is running and credentials are correct.
+- If CORS errors occur, check the `CORS_OPTIONS` variable.
+- For Swagger errors, visit `/api-docs` after the server is running.
+- If tables are not created, check your TypeORM config and entity imports.
 
-2. **Servir los archivos**
-   ```bash
-   # Los archivos generados están en .output/public
-   # Puedes servirlos con cualquier servidor web (nginx, Apache, etc.)
-   ```
-
-## 🔐 Configuración de Autenticación
-
-La aplicación utiliza JWT para la autenticación:
-
-- Los tokens se almacenan en `localStorage`
-- Se incluyen automáticamente en todas las peticiones al backend
-- Si el token expira, el usuario es redirigido al login
-
-## 📱 Características Responsivas
-
-- **Mobile First**: Diseño optimizado para dispositivos móviles
-- **Breakpoints**: Adaptación automática a diferentes tamaños de pantalla
-- **Touch Friendly**: Interfaz optimizada para pantallas táctiles
-
-## 🎨 Personalización
-
-### Colores y Estilos
-
-Los estilos se pueden personalizar editando:
-- `tailwind.config.js` - Configuración de Tailwind CSS
-- `assets/css/tailwind.css` - Estilos personalizados
-
-### Componentes
-
-Los componentes están en `components/` y pueden ser modificados según las necesidades del proyecto.
-
-## 🐛 Solución de Problemas
-
-### Error de hidratación
-Si ves errores de hidratación en la consola, asegúrate de que:
-- El backend esté ejecutándose en la URL correcta
-- Las variables de entorno estén configuradas correctamente
-
-### Problemas de CORS
-Si hay problemas de CORS:
-- Verifica que el backend permita peticiones desde el dominio del frontend
-- Asegúrate de que las URLs estén configuradas correctamente
-
-### Problemas de autenticación
-Si hay problemas con el login:
-- Verifica que el backend esté funcionando
-- Revisa la consola del navegador para errores
-- Asegúrate de que las credenciales sean correctas
