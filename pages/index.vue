@@ -168,6 +168,15 @@ import { procesarTexto, navegarAUrl } from '../Functions/textProcessing.js'
 import AddElemento from '../components/AddElemento.vue'
 import { getTasks, createTask, deleteTask } from '../Functions/taskServices.js'
 
+definePageMeta({
+  title: 'Home | Task Manager App',
+  meta: [
+    { name: 'description', content: 'Manage your tasks efficiently with Task Manager App.' },
+    { property: 'og:title', content: 'Home | Task Manager App' },
+    { property: 'og:description', content: 'Manage your tasks efficiently with Task Manager App.' }
+  ]
+})
+
 // List of elements (strings)
 const elementos = ref([])
 
