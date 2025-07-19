@@ -1,9 +1,10 @@
 <template>
   <div class="min-h-screen bg-gray-50">
     <div class="p-6">
-      <button class="flex items-center gap-3 px-6 py-4 bg-white rounded-lg hover:bg-gray-50 transition-colors duration-200">
+      <button v-if="!mostrarAddElemento" class="flex items-center gap-3 px-6 py-4 bg-white rounded-lg hover:bg-gray-50 transition-colors duration-200" @click="mostrarAddElemento = true">
         <img src="/plus-square.svg" alt="Add task" class="w-6 h-6" />
       </button>
+      <AddElemento v-if="mostrarAddElemento" @cancelar="mostrarAddElemento = false" @agregar="agregarElemento" />
       
       <!-- Lista de elementos -->
       <div v-if="elementos.length > 0" class="mt-4">
@@ -168,6 +169,7 @@
 <script setup>
 import { ref } from 'vue'
 import { procesarTexto, navegarAUrl } from '../Functions/textProcessing.js'
+import AddElemento from '../components/AddElemento.vue'
 
 // Lista de elementos (strings)
 const elementos = ref([
@@ -189,6 +191,17 @@ const elementosMarcados = ref(new Array(elementos.value.length).fill(false))
 // Función para expandir/contraer un elemento
 const toggleElemento = (index) => {
   elementosExpandidos.value[index] = !elementosExpandidos.value[index]
+}
+
+const mostrarAddElemento = ref(false)
+
+const agregarElemento = (nuevoElemento) => {
+  if (nuevoElemento && nuevoElemento.trim().length > 0) {
+    elementos.value.push(nuevoElemento)
+    elementosExpandidos.value.push(false)
+    elementosMarcados.value.push(false)
+  }
+  mostrarAddElemento.value = false
 }
 
 
