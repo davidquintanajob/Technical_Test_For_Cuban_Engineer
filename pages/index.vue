@@ -6,16 +6,16 @@
       </button>
       <AddElemento v-if="mostrarAddElemento" @cancelar="mostrarAddElemento = false" @agregar="agregarElemento" />
       
-      <!-- Lista de elementos -->
+      <!-- List of elements -->
       <div v-if="elementos.length > 0" class="mt-4">
         <ul class="space-y-2">
           <li 
             v-for="(elemento, index) in elementos" 
-            :key="index"
+            :key="elemento.id"
             class="bg-white rounded-lg transition-all duration-300"
             :class="elementosExpandidos[index] ? 'shadow-lg' : 'hover:bg-gray-50'"
           >
-            <!-- Contenido principal del elemento -->
+            <!-- Content of the element -->
             <div 
               class="flex items-center gap-3 p-4 cursor-pointer"
               @click="toggleElemento(index)"
@@ -30,7 +30,7 @@
               <div 
                 class="flex-1 text-gray-700 flex flex-wrap items-center gap-1"
               >
-                <template v-for="(parte, parteIndex) in procesarTexto(elemento, elementosExpandidos[index])" :key="parteIndex">
+                <template v-for="(parte, parteIndex) in procesarTexto(elemento.text, elementosExpandidos[index])" :key="parteIndex">
                   <span 
                     v-if="parte.tipo === 'texto'" 
                     class="text-gray-700"
@@ -71,7 +71,7 @@
                 </template>
               </div>
               
-              <!-- Imagen de perfil visible solo cuando está expandido -->
+              <!-- Profile image visible only when expanded -->
               <div v-if="elementosExpandidos[index]" class="flex-shrink-0 ml-3">
                 <img 
                   src="/DSC_5684.jpg" 
@@ -81,15 +81,15 @@
               </div>
             </div>
             
-            <!-- Área expandida para elementos expandidos -->
+            <!-- Expanded area for expanded elements -->
             <div 
               v-if="elementosExpandidos[index]"
               class="px-4 pb-4 bg-gray-50 rounded-b-lg"
             >
               <div class="pt-3 border-t border-gray-100">
-                <!-- Vista móvil: grid, Vista desktop: flex-row -->
+                <!-- Mobile: grid, Desktop: flex-row -->
                 <div class="grid grid-cols-3 gap-2 sm:flex sm:flex-row sm:flex-wrap">
-                  <!-- Primeros 3 botones -->
+                  <!-- First 3 buttons -->
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f0f8ff;"
                   >
@@ -105,11 +105,11 @@
                   >
                     <img src="/unlock.svg" alt="Unlock" class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" style="filter: brightness(0) saturate(100%) invert(59%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(89%) contrast(86%);" />
                   </button>
-                  <!-- Siguientes 3 botones -->
+                  <!-- Next 3 buttons -->
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
                   >
-                    <!-- Icono de sol/radiación -->
+                    <!-- Sun/radiation icon -->
                     <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="5"></circle>
                       <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -125,7 +125,7 @@
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
                   >
-                    <!-- Icono de 0 en círculo -->
+                    <!-- Zero in circle icon -->
                     <svg class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <circle cx="12" cy="12" r="10"></circle>
                       <circle cx="12" cy="12" r="6"></circle>
@@ -133,14 +133,15 @@
                   </button>
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
+                    @click.stop="eliminarElemento(elemento.id)"
                   >
-                    <!-- Icono de bote de basura -->
+                    <!-- Trash icon -->
                     <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <polyline points="3,6 5,6 21,6"></polyline>
                       <path d="M19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"></path>
                     </svg>
                   </button>
-                  <!-- Botón de cerrar -->
+                  <!-- Close button -->
                   <button 
                     @click="toggleElemento(index)"
                     class="col-span-3 w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm bg-blue-500 hover:bg-blue-600 text-white"
@@ -149,7 +150,7 @@
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
-                    <span class="sm:hidden">Cerrar</span>
+                    <span class="sm:hidden">Close</span>
                   </button>
                 </div>
               </div>
@@ -162,46 +163,63 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { procesarTexto, navegarAUrl } from '../Functions/textProcessing.js'
 import AddElemento from '../components/AddElemento.vue'
+import { getTasks, createTask, deleteTask } from '../Functions/taskServices.js'
 
-// Lista de elementos (strings)
-const elementos = ref([
-  '@admin revisar documentación #urgente',
-  'Completar tarea #bugfix con @desarrollador',
-  'Enviar reporte a maria@empresa.com y juan@empresa.com',
-  'Reunión con @admin y ana@correo.com #importante',
-  'Visitar www.google.com para buscar información',
-  'Documentación en https://nuxt.com y recursos en github.com',
-  'Revisar stackoverflow.com y @admin contactar a maria@empresa.com'
-])
+// List of elements (strings)
+const elementos = ref([])
 
-// Array para rastrear elementos expandidos (múltiples)
+onMounted(async () => {
+  try {
+    const tasks = await getTasks()
+    elementos.value = Array.isArray(tasks) ? tasks.map(t => ({ id: t.id, text: t.text })) : []
+  } catch (e) {
+    console.error('Error loading tasks:', e)
+  }
+})
+
+// Array to track expanded elements (multiple)
 const elementosExpandidos = ref(new Array(elementos.value.length).fill(false))
 
-// Array para rastrear elementos marcados con checkbox (múltiples)
+// Array to track elements marked with checkbox (multiple)
 const elementosMarcados = ref(new Array(elementos.value.length).fill(false))
 
-// Función para expandir/contraer un elemento
+// Function to expand/collapse an element
 const toggleElemento = (index) => {
   elementosExpandidos.value[index] = !elementosExpandidos.value[index]
 }
 
 const mostrarAddElemento = ref(false)
 
-const agregarElemento = (nuevoElemento) => {
+const agregarElemento = async (nuevoElemento) => {
   if (nuevoElemento && nuevoElemento.trim().length > 0) {
-    elementos.value.push(nuevoElemento)
-    elementosExpandidos.value.push(false)
-    elementosMarcados.value.push(false)
+    try {
+      await createTask({ text: nuevoElemento })
+      elementos.value = []
+      const tasks = await getTasks()
+      elementos.value = Array.isArray(tasks) ? tasks.map(t => ({ id: t.id, text: t.text })) : []
+    } catch (e) {
+      console.error('Error creating task:', e)
+    }
   }
   mostrarAddElemento.value = false
+}
+
+const eliminarElemento = async (id) => {
+  try {
+    await deleteTask(id)
+    const tasks = await getTasks()
+    elementos.value = Array.isArray(tasks) ? tasks.map(t => ({ id: t.id, text: t.text })) : []
+  } catch (e) {
+    console.error('Error deleting task:', e)
+  }
 }
 
 
 </script>
 
 <style scoped>
-/* Estilos adicionales si son necesarios */
+/* Additional styles if needed */
 </style>

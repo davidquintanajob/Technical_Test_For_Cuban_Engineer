@@ -1,17 +1,18 @@
-// Functions to interact with the tasks API
-
-const API_BASE = process.env.NUXT_PUBLIC_BACKEND_HOST
+// Archivo para revisión de uso de variable de entorno NUXT_PUBLIC_BACKEND_HOST
+import { useRuntimeConfig } from 'nuxt/app';
 
 // Get all tasks
 export async function getTasks() {
-  const response = await fetch(`${API_BASE}/api/tasks`)
+  const config = useRuntimeConfig();
+  const response = await fetch(`${config.public.backendHost}/api/tasks`)
   if (!response.ok) throw new Error('Failed to fetch tasks')
   return await response.json()
 }
 
 // Create a new task
 export async function createTask(taskData) {
-  const response = await fetch(`${API_BASE}/api/tasks`, {
+  const config = useRuntimeConfig();
+  const response = await fetch(`${config.public.backendHost}/api/tasks`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(taskData)
@@ -22,7 +23,8 @@ export async function createTask(taskData) {
 
 // Delete a task by id
 export async function deleteTask(id) {
-  const response = await fetch(`${API_BASE}/api/tasks/${id}`, {
+  const config = useRuntimeConfig();
+  const response = await fetch(`${config.public.backendHost}/api/tasks/${id}`, {
     method: 'DELETE'
   })
   if (!response.ok) throw new Error('Failed to delete task')
