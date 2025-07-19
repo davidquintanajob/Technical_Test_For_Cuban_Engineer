@@ -86,7 +86,9 @@
               class="px-4 pb-4 bg-gray-50 rounded-b-lg"
             >
               <div class="pt-3 border-t border-gray-100">
-                <div class="grid grid-cols-3 sm:flex sm:flex-wrap gap-2">
+                <!-- Vista móvil: grid, Vista desktop: flex-row -->
+                <div class="grid grid-cols-3 gap-2 sm:flex sm:flex-row sm:flex-wrap">
+                  <!-- Primeros 3 botones -->
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f0f8ff;"
                   >
@@ -104,6 +106,7 @@
                     <img src="/unlock.svg" alt="Unlock" class="w-3 h-3 sm:w-4 sm:h-4 text-gray-500" style="filter: brightness(0) saturate(100%) invert(59%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(89%) contrast(86%);" />
                     <span class="text-gray-500 hidden sm:inline">Public</span>
                   </button>
+                  <!-- Siguientes 3 botones -->
                   <button class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm"
                     style="background-color: #f8fafc;"
                   >
@@ -141,16 +144,16 @@
                     </svg>
                     <span class="text-gray-500 hidden sm:inline">Delete</span>
                   </button>
-                  
-                  <!-- Botón de cerrar al extremo derecho -->
+                  <!-- Botón de cerrar -->
                   <button 
                     @click="toggleElemento(index)"
-                    class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm bg-blue-500 hover:bg-blue-600 text-white ml-auto"
+                    class="col-span-3 w-full sm:w-auto sm:ml-auto flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-md transition-colors text-xs sm:text-sm bg-blue-500 hover:bg-blue-600 text-white"
                   >
                     <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                       <line x1="18" y1="6" x2="6" y2="18"></line>
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
+                    <span class="sm:hidden">Cerrar</span>
                   </button>
                 </div>
               </div>
