@@ -13,15 +13,16 @@ export const procesarTexto = (texto, estaExpandido = false) => {
   let textoActual = texto
   
   // Encontrar todas las menciones, etiquetas, correos y URLs
-  const regex = /(@[\w-]+|#[\w-]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\/[^\s]*)?)/g
+  const regex = /(@[\w-]+|#[\w-]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(?:\/[^\s]*)?)/g;
   let match
   let ultimoIndice = 0
   
   while ((match = regex.exec(texto)) !== null) {
-    // Agregar texto antes de la mención/etiqueta/correo
+    // Agregar texto antes de la mención/etiqueta/correo, incluyendo espacios
     if (match.index > ultimoIndice) {
       const textoAntes = texto.substring(ultimoIndice, match.index)
-      if (textoAntes.trim()) {
+      // No uses .trim(), conserva los espacios
+      if (textoAntes.length > 0) {
         partes.push({ tipo: 'texto', contenido: textoAntes })
       }
     }
@@ -47,10 +48,10 @@ export const procesarTexto = (texto, estaExpandido = false) => {
     ultimoIndice = match.index + contenido.length
   }
   
-  // Agregar texto restante
+  // Agregar texto restante (incluyendo espacios)
   if (ultimoIndice < texto.length) {
     const textoRestante = texto.substring(ultimoIndice)
-    if (textoRestante.trim()) {
+    if (textoRestante.length > 0) {
       partes.push({ tipo: 'texto', contenido: textoRestante })
     }
   }
