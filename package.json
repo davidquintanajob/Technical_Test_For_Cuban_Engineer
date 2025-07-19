@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Sistema de gestión de contratos desarrollado con Nuxt 3, Vue 3 y Tailwind CSS. Esta aplicación permite gestionar contratos, entidades, ofertas, trabajadores y usuarios de manera eficiente.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.25"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.15",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
