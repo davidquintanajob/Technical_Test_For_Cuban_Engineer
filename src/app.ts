@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { Task } from './models/Task';
+import taskRoutes from './routs/taskRoutes';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(cors({ origin: process.env.CORS_OPTIONS || '*' }));
 const PORT = process.env.PPORT || 4000;
 
 connectDatabase();
+
+app.use('/api', taskRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Servidor funcionando');
