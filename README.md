@@ -34,7 +34,7 @@ Below are some images of the project in action:
 
 Before installing the project, make sure you have installed:
 
-- Node.js >= 18
+- Node.js >= 20.13.*
 - PostgreSQL
 - Git
 - (Optional) Docker
@@ -72,14 +72,6 @@ Before installing the project, make sure you have installed:
 ## Usage
 
 Access the frontend from your browser to manage tasks. The frontend communicates with the backend through a REST API documented in Swagger.
-
-## Contributions
-
-Contributions are welcome. Please open an issue or a pull request for suggestions or improvements.
-
-## License
-
-Specify the project license here (e.g., MIT, GPL, etc.).
 
 ## Additional Notes
 
