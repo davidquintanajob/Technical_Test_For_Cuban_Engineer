@@ -1,66 +1,67 @@
-# Gestión de Tareas
+# Task Management
 
-Este proyecto es una aplicación para la gestión de tareas, compuesta por un backend robusto y un frontend moderno. Permite crear, listar, actualizar y eliminar tareas, facilitando la organización y el seguimiento de actividades.
+This project is an application for task management, consisting of a robust backend and a modern frontend. It allows you to create, list, update, and delete tasks, making it easier to organize and track activities.
 
-El frontend cuenta con un diseño responsivo, implementando principios de UI/CI (Interfaz de Usuario/Consistencia de Interfaz), lo que garantiza una experiencia óptima en cualquier dispositivo.
+The frontend features a responsive design, implementing UI/CI (User Interface/Interface Consistency) principles, ensuring an optimal experience on any device.
 
-## Herramientas Utilizadas
+## Tools Used
 
 ### Backend
-- [x] Lenguaje principal: TypeScript
+- [x] Main language: TypeScript
 - [x] Framework: Express
 - [x] ORM: TypeORM
-- [x] Documentación: Swagger
-- [x] Base de datos: PostgreSQL
+- [x] Documentation: Swagger
+- [x] Database: PostgreSQL
 
 ### Frontend
 - [x] Framework: Nuxt
-- [x] Lenguaje: JavaScript
-- [x] Estilos: Tailwind CSS
-- [x] Diseño responsivo y UI/CI
+- [x] Language: JavaScript
+- [x] Styles: Tailwind CSS
+- [x] Responsive design and UI/CI
 
-### Otras herramientas
+### Other tools
 - [x] Git
+- [x] Docker (optional for deployment)
 
-## Capturas de Pantalla
+## Screenshots
 
-A continuación se muestran algunas imágenes del proyecto en funcionamiento:
+Below are some images of the project in action:
 
-![Captura 2](./img2.png)
-![Captura 1](./img1.png)
+![Screenshot 2](./img2.png)
+![Screenshot 1](./img1.png)
 
-## Requisitos Previos
+## Prerequisites
 
-Antes de instalar el proyecto, asegúrate de tener instalado:
+Before installing the project, make sure you have installed:
 
-- Node.js >= 20.13.*
-- PostgreSQL >= 16.*
+- Node.js >= 18
+- PostgreSQL
 - Git
-- (Opcional) Docker
+- (Optional) Docker
 
-## Instalación
+## Installation
 
-> **Nota:** El backend y el frontend se encuentran en ramas diferentes dentro de este mismo repositorio. Debes desplegar primero el backend y luego el frontend.
-> 
-> **Importante:** Antes de iniciar cada servicio, asegúrate de crear el archivo `.env` con las variables de entorno especificadas en la documentación de cada rama (backend y frontend).
+> **Note:** The backend and frontend are in different branches within this same repository. You must deploy the backend first and then the frontend.
+>
+> **Important:** Before starting each service, make sure to create the `.env` file with the environment variables specified in the documentation of each branch (backend and frontend).
 
-1. Clona el repositorio:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/usuario/repositorio.git
+   git clone https://github.com/user/repository.git
    ```
-2. Accede a la carpeta del proyecto:
+2. Go to the project folder:
    ```bash
-   cd nombre_del_proyecto
+   cd project_name
    ```
-3. Cambia a la rama del backend y despliega el backend:
+3. Switch to the backend branch and deploy the backend:
    ```bash
    git checkout backend
    cd backend
    npm install
-   # Configura las variables de entorno para la conexión a PostgreSQL
+   # Set up the environment variables for PostgreSQL connection
    npm run start
    ```
-4. En una nueva terminal, cambia a la rama del frontend y despliega el frontend:
+4. In a new terminal, switch to the frontend branch and deploy the frontend:
    ```bash
    git checkout frontend
    cd frontend
@@ -68,13 +69,20 @@ Antes de instalar el proyecto, asegúrate de tener instalado:
    npm run dev
    ```
 
-## Uso
+## Usage
 
-Accede al frontend desde tu navegador para gestionar tareas. El frontend se comunica con el backend a través de una API REST documentada en Swagger.
+Access the frontend from your browser to manage tasks. The frontend communicates with the backend through a REST API documented in Swagger.
 
+## Contributions
 
-## Notas Adicionales
+Contributions are welcome. Please open an issue or a pull request for suggestions or improvements.
 
-- La documentación de la API está disponible en la ruta `/api-docs` del backend (Swagger).
-- Puedes personalizar el diseño del frontend modificando los estilos en Tailwind CSS.
-- Para despliegue en producción, se recomienda el uso de Docker.
+## License
+
+Specify the project license here (e.g., MIT, GPL, etc.).
+
+## Additional Notes
+
+- The API documentation is available at the `/api-docs` route of the backend (Swagger).
+- You can customize the frontend design by modifying the styles in Tailwind CSS.
+- For production deployment, it is recommended to use Docker.
